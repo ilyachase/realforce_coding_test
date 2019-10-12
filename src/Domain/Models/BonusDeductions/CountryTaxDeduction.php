@@ -8,8 +8,26 @@ use App\Domain\Contracts\SalaryBonusDeductionInterface;
 
 class CountryTaxDeduction implements SalaryBonusDeductionInterface
 {
-    /** @var float */
-    private $taxMultiplier = 0.8;
+    /**
+     * Default multiplier for Country Tax.
+     *
+     * @var float
+     */
+    private $defaultMultiplier = 0.8;
+
+    /**
+     * Lower multiplier for Country Tax.
+     *
+     * @var float
+     */
+    private $lowerMultiplier = 0.82;
+
+    /**
+     * Border kids count for lower Tax multiplier.
+     *
+     * @var int
+     */
+    private $kidsCountBorder = 2;
 
     /**
      * Country tax is applicable for all employees.
@@ -29,7 +47,13 @@ class CountryTaxDeduction implements SalaryBonusDeductionInterface
     {
         $currentSalary = $employee->getSalary();
 
-        $newSalary = $currentSalary->multiply($this->taxMultiplier);
+        if ($employee->getKidsCount() > $this->kidsCountBorder) {
+            $multiplier = $this->lowerMultiplier;
+        } else {
+            $multiplier = $this->defaultMultiplier;
+        }
+
+        $newSalary = $currentSalary->multiply($multiplier);
 
         $employee->setSalary($newSalary);
 
@@ -37,12 +61,34 @@ class CountryTaxDeduction implements SalaryBonusDeductionInterface
     }
 
     /**
-     * Returns current tax multiplier for Country Tax.
+     * Returns current default tax multiplier for Country Tax.
      *
      * @return float
      */
-    public function getTaxMultiplier(): float
+    public function getDefaultMultiplier(): float
     {
-        return $this->taxMultiplier;
+        return $this->defaultMultiplier;
+    }
+
+    /**
+     * Returns current lower tax multiplier for Country Tax
+     * for employees with more than X kids.
+     *
+     * @return float
+     */
+    public function getLowerMultiplier(): float
+    {
+        return $this->lowerMultiplier;
+    }
+
+    /**
+     * Returns current kids count border for lower multiplier
+     * for Country Tax.
+     *
+     * @return int
+     */
+    public function getKidsCountBorder(): int
+    {
+        return $this->kidsCountBorder;
     }
 }
