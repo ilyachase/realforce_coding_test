@@ -14,8 +14,8 @@ interface SalaryBonusDeductionInterface
     public function isApplicable(EmployeeInterface $employee): bool;
 
     /**
-     * Apply changes to employee. MUST return new employee (clone)
-     * and not change the original employee.
+     * Apply changes to employee.
+     * This method MAY change employee's fields (i.e. salary).
      *
      * @param EmployeeInterface $employee
      * @return EmployeeInterface

@@ -3,7 +3,10 @@ declare(strict_types=1);
 
 namespace Tests\Support;
 
+use App\Domain\Contracts\EmployeeInterface;
+use App\Domain\Models\Employee;
 use Faker\Factory;
+use Money\Money;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {
@@ -16,5 +19,16 @@ class TestCase extends \PHPUnit\Framework\TestCase
     {
         parent::__construct($name, $data, $dataName);
         $this->faker = Factory::create();
+    }
+
+    protected function generateEmployee(): EmployeeInterface
+    {
+        return new Employee(
+            $this->faker->name,
+            $this->faker->numberBetween(0, 80),
+            $this->faker->numberBetween(0, 10),
+            $this->faker->boolean,
+            Money::USD($this->faker->numberBetween(1, 15000))
+        );
     }
 }
