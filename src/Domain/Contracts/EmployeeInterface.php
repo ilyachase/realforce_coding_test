@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Contracts;
 
+use Money\Money;
+
 interface EmployeeInterface
 {
     /**
@@ -32,4 +34,18 @@ interface EmployeeInterface
      * @return bool
      */
     public function isUsingCompanyCar(): bool;
+
+    /**
+     * Returns current salary for employee.
+     *
+     * @return int
+     */
+    public function getSalary(): Money;
+
+    /**
+     * Sets new salary for employee.
+     *
+     * @param Money $money
+     */
+    public function setSalary(Money $money): void;
 }
