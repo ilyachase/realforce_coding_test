@@ -6,7 +6,7 @@ use App\Domain\Models\Employee;
 use Money\Money;
 use Tests\Support\TestCase;
 
-class EmployeeTest extends TestCase
+class EmployeeModelTest extends TestCase
 {
     public function testEmployeeModel()
     {
