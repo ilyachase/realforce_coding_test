@@ -5,7 +5,7 @@ namespace App\Infrastructure\Persistence;
 
 use App\Domain\Contracts\EmployeeInterface;
 use App\Domain\Contracts\EmployeeProviderInterface;
-use App\Infrastructure\Exceptions\TypeErrorException;
+use App\Domain\Exceptions\TypeErrorException;
 
 class InMemoryEmployeeProvider implements EmployeeProviderInterface
 {
@@ -33,7 +33,7 @@ class InMemoryEmployeeProvider implements EmployeeProviderInterface
     /**
      * @inheritDoc
      */
-    public function getNewEmployee(): ?EmployeeInterface
+    public function getNextEmployee(): ?EmployeeInterface
     {
         return array_pop($this->employees);
     }

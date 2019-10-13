@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Infrastructure\Exceptions;
+namespace App\Domain\Exceptions;
 
 class TypeErrorException extends \Exception
 {

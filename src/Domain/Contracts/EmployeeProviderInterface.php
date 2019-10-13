@@ -11,5 +11,5 @@ interface EmployeeProviderInterface
      *
      * @return EmployeeInterface|null
      */
-    public function getNewEmployee(): ?EmployeeInterface;
+    public function getNextEmployee(): ?EmployeeInterface;
 }

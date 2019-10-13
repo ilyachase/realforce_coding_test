@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use App\Infrastructure\Exceptions\TypeErrorException;
+use App\Domain\Exceptions\TypeErrorException;
 use App\Infrastructure\Persistence\InMemoryEmployeeProvider;
 use Tests\Support\TestCase;
 
@@ -20,7 +20,7 @@ class EmployeeProviderTest extends TestCase
         $provider = new InMemoryEmployeeProvider($employees);
 
         $employeesCount = 0;
-        while ($provider->getNewEmployee()) {
+        while ($provider->getNextEmployee()) {
             $employeesCount++;
         }
 
