@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+
+use Symfony\Component\Finder\Finder;
+
+$finder = new Finder();
+
+$finder->files()->in(__DIR__ . '/src/Application/Commands/')->name('*Command.php');
+
+/** @var SplFileInfo $file */
+foreach ($finder as $file) {
+    $filePath = $file->getRealPath();
+    $filePath = mb_substr($filePath, strlen(__DIR__));
+    $className = mb_substr($filePath, strpos($filePath, 'src/') + mb_strlen('src/'));
+    $className = str_replace('.php', '', $className);
+    $className = str_replace('/', '\\', $className);
+    $className = 'App\\' . $className;
+
+    if ((new \ReflectionClass($className))->isAbstract()) {
+        continue;
+    }
+
+    $application->add(new $className());
+}
+
+$application->run();
